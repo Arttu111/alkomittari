@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
+import Options from './components/Options';
 
 function App() {
 const [weight, setWeight] = useState(90)
@@ -21,6 +22,9 @@ function handleSubmit(e){
   }
   else { bloodLevel = (gramsLeft /(weight * 0.6))
   }
+  if (bloodLevel < 0){
+    bloodLevel = 0;
+  }
   setResult(bloodLevel);
 }
 
@@ -29,6 +33,7 @@ function handleSubmit(e){
 
   return (
     <>
+<div>    
   <form onSubmit={handleSubmit}>
     <h3>Calculating alcohol blood level</h3>
     <div>
@@ -37,11 +42,14 @@ function handleSubmit(e){
     </div>
     <div>
       <label>Bottles</label>
-      <input value={bottles} onChange={e => setBottles(e.target.value)} type="number"/>
+      <select value={bottles} onChange={e => setBottles(e.target.value)}><Options/>
+      </select>
+      
     </div>
     <div>
       <label>Time</label>
-      <input value={time} onChange={e => setTime(e.target.value)} type="number"/>
+      <select value={time} onChange={e => setTime(e.target.value)}><Options/>
+      </select>
     </div>
     <div>
     <label>Gender</label>
@@ -56,6 +64,7 @@ function handleSubmit(e){
     </div>
       <button>Calculate</button>
   </form>  
+  </div>  
     </>
   );
 }
